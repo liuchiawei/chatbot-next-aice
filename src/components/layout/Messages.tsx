@@ -36,6 +36,10 @@ export default function Messages({ messages, className, containerClassName }: { 
               {message.role === 'user' ? 'Me' : 'AICE'}
             </div>
             {/* body: content */}
+            <div>
+              console.log<br/>
+              {JSON.stringify(message.parts)}
+            </div>
             {message.parts?.map((part: any, i: number) => {
               switch (part.type) {
                 case 'text':
@@ -43,8 +47,14 @@ export default function Messages({ messages, className, containerClassName }: { 
                   if (message.role === 'user') {
                     return <p className="block" key={`${message.id}-${i}`}>{part.text}</p>;
                   } else if (part.text.length < 30) {
-                    // ai message: typewriter animation only for short text
-                    return <SplitText text={part.text} />;
+                    // TODO: check if the message is the last part
+                    if (i === (message.parts?.length ?? 0) - 1) {
+                      // ai message: typewriter animation only for short text
+                      return <SplitText text={part.text} />;
+                    } else {
+                      // ai message: plain text
+                      return <p className="block" key={`${message.id}-${i}`}>{part.text}</p>;
+                    }
                   } else {
                     // ai message: plain text
                     return <p className="block" key={`${message.id}-${i}`}>{part.text}</p>;
