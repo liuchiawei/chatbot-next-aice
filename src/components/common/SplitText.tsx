@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { motion } from "motion/react"; // アニメーション用
 
 // props型定義
@@ -12,7 +12,7 @@ interface SplitTextProps {
 
 const SplitText: React.FC<SplitTextProps> = ({
   text,
-  duration = 3000,
+  duration = 2000,
   className = "",
 }) => {
   const [visibleCount, setVisibleCount] = useState(0);
