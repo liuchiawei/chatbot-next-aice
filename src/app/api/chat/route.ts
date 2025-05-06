@@ -5,6 +5,8 @@ import {
   experimental_generateImage as generateImage,
 } from "ai";
 import { z } from "zod";
+import { promises as fs } from "fs"; // ファイル操作のためにfsをインポート
+import path from "path"; 
 
 export const maxDuration = 30;
 
@@ -39,7 +41,20 @@ export async function POST(req: Request) {
             },
           });
           const base64 = image.images[0].base64;
-          return { image: base64 };
+          // 画像保存用ディレクトリとファイル名を設定
+          const dir = path.join(process.cwd(), "public", "generatedImage");
+          const fileName = `image_${Date.now()}.png`; // 一意なファイル名
+          const filePath = path.join(dir, fileName);
+
+          // ディレクトリがなければ作成
+          await fs.mkdir(dir, { recursive: true });
+
+          // base64をバッファに変換してファイルに書き込む
+          const buffer = Buffer.from(base64, "base64");
+          await fs.writeFile(filePath, buffer);
+
+          // クライアントに画像のパスを返す
+          return { imagePath: `/generatedImage/${fileName}` };
         },
       }),
     },
