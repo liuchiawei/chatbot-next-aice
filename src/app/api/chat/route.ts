@@ -12,13 +12,14 @@ export async function POST(req: Request) {
   const { messages } = await req.json();
 
   const result = streamText({
-    model: openai("gpt-4o"),
+    model: openai.responses("gpt-4o"),
     messages,
     system:
       "You are a professional writer. " +
       "You write simple, clear, and concise Japanese content.",
     // prompt: `Summarize the following article in 3-5 sentences: ${article}`,
     tools: {
+      web_search_preview: openai.tools.webSearchPreview(),
       // TODO: upload image to Cloud
       generateImageTool: tool({
         description: "Generate an image based on a prompt",
@@ -38,12 +39,12 @@ export async function POST(req: Request) {
               },
             },
           });
-          const base64 = image.images[0].base64
+          const base64 = image.images[0].base64;
           return { image: base64 };
         },
       }),
     },
-    maxSteps:10,
+    maxSteps: 10,
   });
 
   return result.toDataStreamResponse();
