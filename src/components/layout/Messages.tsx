@@ -30,7 +30,7 @@ export default function Messages({ messages, className, containerClassName }: { 
             </Avatar>
           )}
           {/* message container */}
-          <div className={cn("flex flex-col gap-1 w-fit p-4 rounded-md shadow-sm dark:shadow-none *:whitespace-pre-wrap", className)}>
+          <div className={cn("flex flex-col gap-1 w-fit p-6 rounded-md shadow-sm dark:shadow-none *:whitespace-pre-wrap", className)}>
             {/* header: role */}
             <div className="text-xs text-zinc-700 dark:text-zinc-500">
               {message.role === 'user' ? 'Me' : 'AICE'}

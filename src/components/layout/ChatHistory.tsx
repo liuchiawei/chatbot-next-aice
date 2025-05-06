@@ -36,7 +36,7 @@ export default function ChatHistory() {
   };
 
   return (
-    <Sidebar className="bg-background">
+    <Sidebar>
       <SidebarHeader className="flex justify-center items-center p-4 relative">
         <SidebarTrigger className="absolute top-4 right-4 cursor-pointer" />
         <AiProfile className="w-full rounded-lg p-4" />

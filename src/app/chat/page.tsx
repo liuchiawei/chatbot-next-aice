@@ -31,7 +31,7 @@ export default function Page() {
   return (
     <SidebarProvider>
       <div className="w-full h-full flex bg-zinc-300 dark:bg-zinc-950">
-        <ThemeToggle className="fixed top-4 right-4" />
+        <ThemeToggle className="fixed top-4 right-4 z-20" />
         <ChatHistory />
         <SidebarTrigger className="fixed top-4 left-4 cursor-pointer" />
         <ChatSection 

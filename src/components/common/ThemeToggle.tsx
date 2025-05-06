@@ -38,9 +38,9 @@ export default function ThemeToggle({ className }: { className?: string }) {
             className={cn("cursor-pointer", className)}
           >
             {isDark ? (
-              <Sun className="h-4 w-4" />
+              <Sun className="h-4 w-4 text-white" />
             ) : (
-              <Moon className="h-4 w-4" />
+              <Moon className="h-4 w-4 text-white" />
             )}
           </Button>
         </TooltipTrigger>
