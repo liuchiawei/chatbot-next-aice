@@ -10,8 +10,8 @@ export default function AiProfile({ className }: { className?: string }) {
           AI
         </AvatarFallback>
       </Avatar>
-      <h1 className="text-xl font-bold mt-4">Evil Morty</h1>
-      <h2 className="text-sm text-zinc-500">79⊢⊇V</h2>
+      <h1 className="text-xl font-bold mt-4">Mr. AICE</h1>
+      <h2 className="text-sm text-zinc-500">AICE株式会社</h2>
     </div>
   );
 }
