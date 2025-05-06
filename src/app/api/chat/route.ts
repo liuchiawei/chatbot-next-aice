@@ -17,7 +17,6 @@ export async function POST(req: Request) {
     system:
       "You are a professional writer. " +
       "You write simple, clear, and concise Japanese content.",
-    // prompt: `Summarize the following article in 3-5 sentences: ${article}`,
     tools: {
       web_search_preview: openai.tools.webSearchPreview(),
       // TODO: upload image to Cloud
