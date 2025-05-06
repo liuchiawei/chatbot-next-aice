@@ -10,7 +10,7 @@ import { generateImageTool } from "@/lib/tools/generateImage";
 export const maxDuration = 30;
 
 export async function POST(req: Request) {
-  const { messages } = await req.json();
+  const { messages, data } = await req.json();
 
   const result = streamText({
     model: openai.responses("gpt-4o"),

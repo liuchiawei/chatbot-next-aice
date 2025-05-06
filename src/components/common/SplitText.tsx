@@ -1,25 +1,26 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { cn } from "@/lib/utils";
 import { motion } from "motion/react"; // アニメーション用
 
 // props型定義
 interface SplitTextProps {
   text: string; // 表示するテキスト
-  duration?: number; // アニメーション全体の時間（ミリ秒、デフォルト5000）
+  interval?: number; // アニメーション全体の時間（ミリ秒、デフォルト5000）
   className?: string; // 追加クラス
 }
 
 const SplitText: React.FC<SplitTextProps> = ({
   text,
-  duration = 2000,
+  interval = 0.02, // 1文字ごとの表示間隔
   className = "",
 }) => {
   const [visibleCount, setVisibleCount] = useState(0);
 
   useEffect(() => {
     let current = 0;
-    const interval = duration / text.length; // 1文字ごとの表示間隔
+    // const duration = interval * text.length; 
     const timer = setInterval(() => {
       current++;
       setVisibleCount(current);
@@ -30,10 +31,10 @@ const SplitText: React.FC<SplitTextProps> = ({
 
     // クリーンアップ
     return () => clearInterval(timer);
-  }, [text, duration]);
+  }, [text, interval]);
 
   return (
-    <span className={className} style={{ display: "inline-block" }}>
+    <span className={cn("inline-block", className)}>
       {text.split("").map((char, i) => (
         <motion.span
           key={i}
@@ -44,10 +45,18 @@ const SplitText: React.FC<SplitTextProps> = ({
               : { opacity: 0, y: 10 } // 非表示：透明＆下にずれる
           }
           transition={{
+            type: "spring",
+            bounce: 0.3,
             duration: 0.2,
-            delay: i * (duration / text.length) / 1000, // 各文字の遅延
+            delay: i * interval, // 各文字の遅延
           }}
-          style={{ display: "inline-block" }}
+          className="inline-block"
+          onAnimationComplete={() => {
+            if (i === text.length - 1) {
+              // 最後の文字のアニメーションが完了したら、アニメーションを停止
+              setVisibleCount(text.length);
+            }
+          }}
         >
           {char}
         </motion.span>

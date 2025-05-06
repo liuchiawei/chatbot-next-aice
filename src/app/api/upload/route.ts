@@ -34,7 +34,7 @@ export async function POST(req: NextRequest) {
     const file = formData.get("image") as File;
 
     if (!file) {
-      return NextResponse.json({ message: "未選擇圖片" }, { status: 400 });
+      return NextResponse.json({ message: "画像を選択してください" }, { status: 400 });
     }
 
     const bytes = await file.arrayBuffer();
@@ -52,6 +52,6 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ filename });
   } catch (error) {
     console.error("Upload error:", error);
-    return NextResponse.json({ message: "上傳失敗" }, { status: 500 });
+    return NextResponse.json({ message: "アップロードに失敗しました" }, { status: 500 });
   }
 }

@@ -30,16 +30,26 @@ export default function Messages({ messages, className, containerClassName }: { 
             </Avatar>
           )}
           {/* message container */}
-          <div className={cn("flex flex-col gap-1 w-fit py-2 px-4 rounded-md shadow-sm dark:shadow-none *:whitespace-pre-wrap", className)}>
+          <div className={cn("flex flex-col gap-1 w-fit p-4 rounded-md shadow-sm dark:shadow-none *:whitespace-pre-wrap", className)}>
             {/* header: role */}
-            <div className="text-xs text-zinc-300 dark:text-zinc-600">
+            <div className="text-xs text-zinc-700 dark:text-zinc-500">
               {message.role === 'user' ? 'Me' : 'AICE'}
             </div>
             {/* body: content */}
             {message.parts?.map((part: any, i: number) => {
               switch (part.type) {
                 case 'text':
-                  return <p className="block" key={`${message.id}-${i}`}>{part.text}</p>;
+                  // user message: plain text
+                  if (message.role === 'user') {
+                    return <p className="block" key={`${message.id}-${i}`}>{part.text}</p>;
+                  } else if (part.text.length < 30) {
+                    // ai message: typewriter animation only for short text
+                    return <SplitText text={part.text} />;
+                  } else {
+                    // ai message: plain text
+                    return <p className="block" key={`${message.id}-${i}`}>{part.text}</p>;
+                  }
+
                 case 'tool-invocation':
                   return (
                     // image container
