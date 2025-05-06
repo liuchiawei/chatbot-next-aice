@@ -25,7 +25,7 @@ export default function Messages({ messages, className, containerClassName }: { 
                 <AvatarImage src="https://github.com/shadcn.png" />
               )}
               <AvatarFallback>
-                {message.role === 'user' ? 'Me' : 'AI'}
+                {message.role === 'user' ? 'Me' : 'AICE'}
               </AvatarFallback>
             </Avatar>
           )}
@@ -33,7 +33,7 @@ export default function Messages({ messages, className, containerClassName }: { 
           <div className={cn("flex flex-col gap-1 w-fit py-2 px-4 rounded-md shadow-sm dark:shadow-none *:whitespace-pre-wrap", className)}>
             {/* header: role */}
             <div className="text-xs text-zinc-300 dark:text-zinc-600">
-              {message.role === 'user' ? 'Me' : 'AI'}
+              {message.role === 'user' ? 'Me' : 'AICE'}
             </div>
             {/* body: content */}
             {message.parts?.map((part: any, i: number) => {
